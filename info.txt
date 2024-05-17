@@ -1,0 +1,2 @@
+main.pas
+Sysutils,Strutils,crt,process,math
