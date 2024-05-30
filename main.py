@@ -8,27 +8,15 @@ def sort_dict(dico, order=None):
     return dict(sorted(dico.items(), key=lambda x: x[1]))
 
 
-def uncomment(text: str, mult: int = -1) -> str:
+def uncomment(text: str, mult: int = 2) -> str:
     """remove both inline and multiline comment with a pascal syntax"""
-    if mult == 1:
-        a = text.find('{')
-        if a == -1:
-            return text
-        elif text.find('}', a) == -1:
-            return text[:a]
-        else:
-            return text[:a] + uncomment(text[text.find('}', text.find('{')) + 1:])
-    elif mult == 0:
-        a = text.find('//')
-        if a == -1:
-            return text
-        elif text.find('\n', a) == -1:
-            return text[:a]
-        else:
-            return text[:a] + uncomment(text[text.find('\n', a) + 1:])
-    else:
-        return uncomment(uncomment(text, 0), 1)
+    tab = [[text, "//", '\n'],[text, "{", '}'],[uncomment(uncomment(text,1),0), None, None]]
+    return remove(*tab[mult])
 
+def remove(text: str, begin: str, end:str) -> str:
+    a, b = text.find(begin),text.find(end,begin)
+    return text if a == -1 else (text[:a] if b == -1 else text[:a] + uncomment(text[b + 1:]))
+    
 
 def remove_strings(text: str) -> str:
     """remove all single quoted strings from text, ignore exscaping chars  """
