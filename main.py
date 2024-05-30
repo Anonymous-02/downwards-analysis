@@ -41,12 +41,12 @@ def remove_strings(text: str) -> str:
         return text[:a] + remove_strings(text[text.find("'", a + 1) + 1:])
 
 
-def separate(text: str, pos: int = 0, until: str = ';') -> (str, str):
+def separate(text: str, pos: int = 0, until: str = ';') -> tuple[str, str]:
     """split text into the part between pos and the next occurence of until and the rest"""
     return text[:pos] + text[text.find(until, pos) + len(until):], text[pos:text.find(until, pos)]
 
 
-def init(filename: str, key=None) -> (str, dict):
+def init(filename: str, key=None) ->  tuple[str, dict]:
     """read modules and functions declarations,
     stores modules in lib and functions/procedures in functions[filename]"""
     global ignore, kw, lib, functions
