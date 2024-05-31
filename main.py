@@ -2,7 +2,7 @@ from anytree import Node, RenderTree
 from anytree.exporter import UniqueDotExporter
 
 
-def sort_dict(dico, order=None):
+def sort_dict(dico:dict, order=None)->dict:
     if order:
         return dict(sorted(dico.items(), key=lambda x: x[0]))
     return dict(sorted(dico.items(), key=lambda x: x[1]))
